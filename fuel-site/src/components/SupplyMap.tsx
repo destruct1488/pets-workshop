@@ -49,7 +49,7 @@ export function SupplyMap() {
       {origins.map((o) => (
         <g key={o.name}>
           <path d={o.route} className="map-route" />
-          <circle cx={o.x} cy={o.y} r="13" className="map-node" />
+          <circle cx={o.x} cy={o.y} r="22" className="map-node" />
           <text x={o.labelX} y={o.labelY} textAnchor={o.anchor} className="map-label">
             {o.name}
           </text>
@@ -58,15 +58,15 @@ export function SupplyMap() {
 
       {regions.map((r) => (
         <g key={r.name}>
-          <circle cx={r.x} cy={r.y} r="9" className="map-city" />
+          <circle cx={r.x} cy={r.y} r="14" className="map-city" />
           <text x={r.lx} y={r.ly} textAnchor={r.anchor} className="map-city-label">
             {r.name}
           </text>
         </g>
       ))}
 
-      <circle cx={KYIV.x} cy={KYIV.y} r="24" className="map-hub" />
-      <circle cx={KYIV.x} cy={KYIV.y} r="11" className="map-hub-core" />
+      <circle cx={KYIV.x} cy={KYIV.y} r="36" className="map-hub" />
+      <circle cx={KYIV.x} cy={KYIV.y} r="16" className="map-hub-core" />
       <text x={KYIV.x - 34} y={KYIV.y - 4} textAnchor="end" className="map-label map-label-strong">
         Київ
       </text>
