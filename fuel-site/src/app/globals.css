@@ -803,3 +803,17 @@ a {
     font-size: 0.95rem;
   }
 }
+
+/* Phone: less empty space around the hero map and between sections */
+@media (max-width: 720px) {
+  .hero {
+    padding-top: 32px;
+  }
+  .hero-grid {
+    gap: 24px;
+  }
+  .section {
+    padding: 40px 0;
+  }
+}
+
