@@ -1,7 +1,7 @@
 import { Logo } from "@/components/Logo";
 import { PriceTable } from "@/components/PriceTable";
 import { SupplyMap } from "@/components/SupplyMap";
-import { company, mainPhone, navLinks, originCountries, phoneGroups } from "@/lib/site";
+import { company, mainPhone, navLinks, phoneGroups } from "@/lib/site";
 import { FALLBACK_PRICES } from "@/lib/fallback-prices";
 import { getCurrentPrices } from "@/lib/store";
 
@@ -51,24 +51,6 @@ export default async function Home() {
             </div>
             <div className="hero-visual">
               <SupplyMap />
-            </div>
-          </div>
-        </section>
-
-        <section className="quality" id="quality">
-          <div className="container split">
-            <div className="split-head">
-              <h2>Якість підтверджена документами на кожну поставку</h2>
-            </div>
-            <div className="quality-side">
-              <p className="quality-standard">Євро 5</p>
-              <p>Сертифікат і паспорт якості супроводжують кожну окрему поставку.</p>
-              <p className="quality-label">Звідки постачаємо</p>
-              <ul className="chips">
-                {originCountries.map((country) => (
-                  <li key={country}>{country}</li>
-                ))}
-              </ul>
             </div>
           </div>
         </section>
