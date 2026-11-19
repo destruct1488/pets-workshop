@@ -676,9 +676,9 @@ a {
 }
 
 .requisites {
-  margin-top: 64px;
-  padding-top: 28px;
-  border-top: 1px solid var(--line);
+  margin-top: 32px;
+  padding-top: 0;
+  border-top: 2px solid #7fbf96;
 }
 .requisites h3 {
   margin-bottom: 14px;
