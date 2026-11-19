@@ -196,6 +196,16 @@ a {
 .button-line {
   border: 2px solid var(--ink);
   color: var(--ink);
+  background: var(--surface);
+}
+.telegram-cta {
+  display: flex;
+  justify-content: center;
+  margin: 28px 0 8px;
+}
+.telegram-cta .button {
+  padding: 16px 32px;
+  font-size: 1.05rem;
 }
 .button-line:hover {
   background: var(--ink);

@@ -39,24 +39,19 @@ export default async function Home() {
           <div className="container hero-grid">
             <div className="hero-copy">
               <h1>Оптові поставки нафтопродуктів з Європи: прозора якість на кожному етапі</h1>
+              <div className="hero-actions">
+                <a className="button button-solid" href={mainPhone.href}>
+                  Зателефонувати
+                </a>
+                <a className="button button-line" href="#prices">
+                  Актуальні ціни
+                </a>
+              </div>
               <p>
                 {company.name} імпортує світлі нафтопродукти з ЄС і доставляє їх власними бензовозами,
                 залізницею, річковим та морським транспортом по всій Україні: від Києва до Львова,
                 Одеси та Харкова, у місце, вказане в договорі.
               </p>
-              <div className="hero-actions">
-                <a className="button button-solid" href={mainPhone.href}>
-                  Зателефонувати
-                </a>
-                <a
-                  className="button button-line"
-                  href={company.telegramUrl}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Актуальні ціни
-                </a>
-              </div>
             </div>
             <div className="hero-visual">
               <SupplyMap />
@@ -92,6 +87,11 @@ export default async function Home() {
               </p>
             </div>
             <PriceTable snapshot={prices} />
+            <div className="telegram-cta">
+              <a className="button button-solid" href={company.telegramUrl} rel="noopener noreferrer" target="_blank">
+                Ціни за регіонами в Telegram
+              </a>
+            </div>
             <div className="pricing-note">
               <h3>Умови поставки</h3>
               <ul>
@@ -101,9 +101,6 @@ export default async function Home() {
                 <li>Більший обсяг поставки знижує ціну, більша відстань маршруту підвищує її. Для кожного клієнта діє індивідуальна програма лояльності.</li>
                 <li>Ціни актуальні на момент публікації.</li>
               </ul>
-              <a href={company.telegramUrl} rel="noopener noreferrer" target="_blank">
-                Ціни за регіонами в Telegram: {company.telegramLabel}
-              </a>
             </div>
           </div>
         </section>
