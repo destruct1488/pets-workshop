@@ -88,16 +88,6 @@ export default async function Home() {
                 Ціни за регіонами в Telegram
               </a>
             </div>
-            <div className="pricing-note">
-              <h3>Умови поставки</h3>
-              <ul>
-                <li>Ціни вказані з ПДВ, на об’єм від 30 000 л.</li>
-                <li>Об’єм від 5 000 до 25 000 л розраховується індивідуально.</li>
-                <li>Умови та місце поставки: DDP.</li>
-                <li>Більший обсяг поставки знижує ціну, більша відстань маршруту підвищує її. Для кожного клієнта діє індивідуальна програма лояльності.</li>
-                <li>Ціни актуальні на момент публікації.</li>
-              </ul>
-            </div>
           </div>
         </section>
 
@@ -111,13 +101,13 @@ export default async function Home() {
               {phoneGroups.map((group) => (
                 <div className="contact-block" key={group.title}>
                   <h3>{group.title}</h3>
-                  <ul>
+                  <div className="phone-buttons">
                     {group.phones.map((p) => (
-                      <li key={p.href}>
-                        <a href={p.href}>{p.display}</a>
-                      </li>
+                      <a className="button button-solid" key={p.href} href={p.href}>
+                        {p.display}
+                      </a>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               ))}
               <div className="contact-block">
