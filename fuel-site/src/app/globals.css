@@ -510,6 +510,43 @@ a {
   font-weight: 600;
   font-size: 1.05rem;
 }
+/* Brighter table: brand header, striped rows, strong prices */
+.price-matrix thead th {
+  background: var(--brand);
+  color: #ffffff;
+  border-bottom: none;
+}
+.price-matrix thead th span {
+  color: rgba(255, 255, 255, 0.85);
+}
+.price-matrix tbody tr:nth-child(even) th,
+.price-matrix tbody tr:nth-child(even) td {
+  background: #e6f4ec;
+}
+.price-matrix tbody th {
+  color: var(--ink);
+  font-weight: 700;
+}
+.price-matrix td {
+  color: var(--brand-deep);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.price-matrix tbody tr:hover th,
+.price-matrix tbody tr:hover td {
+  background: #d3ecdd;
+}
+
+/* Regions list: dark text on the light background */
+.regions .quality-label {
+  color: var(--ink);
+  font-weight: 600;
+}
+.regions .chips li {
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
 
 .prices-empty {
   display: flex;
