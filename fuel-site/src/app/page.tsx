@@ -43,10 +43,6 @@ export default async function Home() {
           <div className="container hero-grid">
             <div className="hero-copy">
               <h1>Оптові поставки нафтопродуктів з Європи: прозора якість на кожному етапі</h1>
-              <p>
-                ТАНКЕР-ОІЛ КОМПАНІ імпортує світлі нафтопродукти з ЄС і доставляє їх по всій Україні:
-                від Львова до Харкова, Одеси та Києва, у місце, вказане в заявках.
-              </p>
             </div>
             <div className="hero-visual">
               <SupplyMap />
