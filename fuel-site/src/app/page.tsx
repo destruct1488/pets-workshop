@@ -28,9 +28,13 @@ export default async function Home() {
               </a>
             ))}
           </nav>
-          <a className="button button-solid header-phone" href={mainPhone.href}>
-            {mainPhone.display}
-          </a>
+          <div className="header-brand-right">
+            <span className="flag-ua" aria-hidden="true">
+              <span />
+              <span />
+            </span>
+            <span className="header-legal">LLC «{company.nameLatin}»</span>
+          </div>
         </div>
       </header>
 
