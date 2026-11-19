@@ -1,8 +1,7 @@
 import { Logo } from "@/components/Logo";
 import { PriceTable } from "@/components/PriceTable";
 import { SupplyMap } from "@/components/SupplyMap";
-import { TransportIcon } from "@/components/TransportIcon";
-import { company, facts, mainPhone, navLinks, originCountries, phoneGroups, transport } from "@/lib/site";
+import { company, mainPhone, navLinks, originCountries, phoneGroups } from "@/lib/site";
 import { FALLBACK_PRICES } from "@/lib/fallback-prices";
 import { getCurrentPrices } from "@/lib/store";
 
@@ -63,63 +62,12 @@ export default async function Home() {
               <SupplyMap />
             </div>
           </div>
-
-          <div className="container">
-            <dl className="facts">
-              {facts.map((fact) => (
-                <div className="fact" key={fact.value}>
-                  <dt>{fact.value}</dt>
-                  <dd>{fact.text}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </section>
-
-        <section className="section" id="supply">
-          <div className="container split">
-            <div className="split-head">
-              <h2>Постачаємо власними бензовозами, залізницею, річкою та морем</h2>
-              <p>
-                Оптова торгівля світлими нафтопродуктами: перевалка, зберігання та реалізація на АЗС
-                з нафтобаз, а також доставка в зазначене в договорі місце.
-              </p>
-            </div>
-            <ul className="transport-list">
-              {transport.map((mode) => (
-                <li key={mode.id}>
-                  <span className="transport-icon">
-                    <TransportIcon id={mode.id} />
-                  </span>
-                  <span>
-                    <strong>{mode.title}</strong>
-                    <span className="muted">{mode.text}</span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <div className="regions">
-              <p className="quality-label">Доставляємо в усі регіони України</p>
-              <ul className="chips">
-                {["Київ", "Львів", "Вінниця", "Чернігів", "Одеса", "Дніпро", "Запоріжжя", "Харків", "і далі за маршрутом"].map(
-                  (city) => (
-                    <li key={city}>{city}</li>
-                  ),
-                )}
-              </ul>
-            </div>
-          </div>
         </section>
 
         <section className="quality" id="quality">
           <div className="container split">
             <div className="split-head">
               <h2>Якість підтверджена документами на кожну поставку</h2>
-              <p>
-                Ми імпортуємо світлі нафтопродукти за конкурентними цінами від провідних європейських
-                виробників і постачальників. Працюємо з нафтопереробними компаніями ЄС, які гарантують
-                якість за стандартом Євро 5.
-              </p>
             </div>
             <div className="quality-side">
               <p className="quality-standard">Євро 5</p>
