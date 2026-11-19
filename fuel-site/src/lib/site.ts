@@ -42,7 +42,15 @@ export const transport = [
   { id: "sea", title: "Морський транспорт", text: "Постачання морем" },
 ] as const;
 
-export const originCountries = ["Румунія", "Литва", "Греція", "Польща"] as const;
+export const originCountries = [
+  "Німеччина",
+  "Латвія",
+  "Литва",
+  "Польща",
+  "Молдова",
+  "Румунія",
+  "Греція",
+] as const;
 
 export const navLinks = [
   { href: "#about", label: "Про компанію" },
