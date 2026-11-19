@@ -114,12 +114,12 @@ export default async function Home() {
                   <dd>{company.legalName}</dd>
                 </div>
                 <div>
-                  <dt>Юридична адреса</dt>
-                  <dd>{company.address}</dd>
-                </div>
-                <div>
                   <dt>ЄДРПОУ</dt>
                   <dd>{company.edrpou}</dd>
+                </div>
+                <div>
+                  <dt>Юридична адреса</dt>
+                  <dd>{company.address}</dd>
                 </div>
                 <div>
                   <dt>Beneficiary</dt>
