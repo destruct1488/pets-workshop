@@ -11,6 +11,7 @@ describe("validateItems", () => {
     });
     expect(result).toEqual({
       ok: true,
+      priceDate: null,
       items: [
         { region: "Київ", product: "ДП", price: 52.4, unit: "грн/л" },
         { region: null, product: "А-95", price: 55.9, unit: "грн/л" },
@@ -80,12 +81,55 @@ describe("formatting", () => {
     expect(text).toContain("різка зміна");
   });
 
-  it("groups by region with the no-region group first", () => {
+  it("groups by region keeping the original order", () => {
     const groups = groupByRegion([
       { region: "Львів", product: "ДП", price: 1, unit: "u" },
       { region: null, product: "ДП", price: 1, unit: "u" },
       { region: "Київ", product: "ДП", price: 1, unit: "u" },
     ]);
-    expect(groups.map((g) => g.region)).toEqual([null, "Київ", "Львів"]);
+    expect(groups.map((g) => g.region)).toEqual(["Львів", null, "Київ"]);
+  });
+});
+
+import fixture from "./fixtures/price-photo-2026-11-19.json";
+import { formatDate, parsePriceDate, toMatrix } from "../src/lib/prices";
+
+describe("real price photo (19.11.2026)", () => {
+  const result = validateItems(fixture);
+
+  it("is accepted with its date", () => {
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.items).toHaveLength(69);
+    expect(result.priceDate).toBe("2026-11-19");
+  });
+
+  it("pivots into 23 regions and 3 fuels in the original order", () => {
+    if (!result.ok) throw new Error("fixture rejected");
+    const m = toMatrix(result.items);
+    expect(m.products.map((p) => p.name)).toEqual(["Дизельне пальне", "Бензин А-95", "Пропан-бутан"]);
+    expect(m.rows).toHaveLength(23);
+    expect(m.rows[0]).toEqual({ region: "Вінниця", cells: [84.8, 71.55, 59.2] });
+    expect(m.rows.find((r) => r.region === "Київ")?.cells).toEqual([85.7, 72.35, 60.5]);
+    expect(m.rows.at(-1)).toEqual({ region: "Чернівці", cells: [83.5, 70.3, 57.95] });
+  });
+
+  it("makes a Telegram summary that fits one message", () => {
+    if (!result.ok) throw new Error("fixture rejected");
+    const text = formatSummary(result.items, [], result.priceDate);
+    expect(text.length).toBeLessThan(3800);
+    expect(text).toContain("Київ: Дизельне пальне 85,70");
+    expect(text).toContain("19 листопада 2026");
+  });
+});
+
+describe("parsePriceDate", () => {
+  it("accepts real dates and rejects the rest", () => {
+    expect(parsePriceDate("19.11.2026")).toBe("2026-11-19");
+    expect(parsePriceDate("2026-11-19")).toBe("2026-11-19");
+    expect(parsePriceDate("31.02.2026")).toBeNull();
+    expect(parsePriceDate("yesterday")).toBeNull();
+    expect(parsePriceDate(null)).toBeNull();
+    expect(formatDate("2026-11-19")).toContain("2026");
   });
 });

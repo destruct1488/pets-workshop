@@ -15,7 +15,7 @@ import {
 } from "./telegram";
 import { extractPrices } from "./vision";
 
-type Pending = { items: PriceItem[]; userId: number };
+type Pending = { items: PriceItem[]; priceDate: string | null; userId: number };
 
 const PENDING_TTL = 60 * 60; // a parsed table waits one hour for confirmation
 const CALLBACK_RE = /^(pub|cancel):([0-9a-f]{16})$/;
@@ -69,8 +69,8 @@ async function handleMessage(message: TgMessage): Promise<void> {
     const current = await getCurrentPrices();
     const changes = diffPrices(current?.items, result.items);
     const id = randomBytes(8).toString("hex");
-    await kvSet(`pending-${id}`, { items: result.items, userId } satisfies Pending, PENDING_TTL);
-    await sendMessage(chatId, formatSummary(result.items, changes), [
+    await kvSet(`pending-${id}`, { items: result.items, priceDate: result.priceDate, userId } satisfies Pending, PENDING_TTL);
+    await sendMessage(chatId, formatSummary(result.items, changes, result.priceDate), [
       [
         { text: "Опублікувати на сайті", callback_data: `pub:${id}` },
         { text: "Скасувати", callback_data: `cancel:${id}` },
@@ -106,7 +106,7 @@ async function handleCallback(query: TgCallbackQuery): Promise<void> {
     return;
   }
 
-  await setCurrentPrices({ updatedAt: new Date().toISOString(), items: pending.items });
+  await setCurrentPrices({ updatedAt: new Date().toISOString(), priceDate: pending.priceDate, items: pending.items });
   revalidatePath("/");
   await answerCallbackQuery(query.id, "Опубліковано");
   await editMessageText(chat.chat.id, chat.message_id, `Опубліковано на сайті. Рядків: ${pending.items.length}.`);

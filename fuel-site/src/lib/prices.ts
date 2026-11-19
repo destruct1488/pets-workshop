@@ -7,6 +7,8 @@ export type PriceItem = {
 
 export type PriceSnapshot = {
   updatedAt: string;
+  /** Date printed on the price table itself (YYYY-MM-DD), when it has one. */
+  priceDate?: string | null;
   items: PriceItem[];
 };
 
@@ -20,7 +22,7 @@ export type PriceChange = {
 };
 
 export type ValidationResult =
-  | { ok: true; items: PriceItem[] }
+  | { ok: true; items: PriceItem[]; priceDate: string | null }
   | { ok: false; error: string };
 
 const MAX_ITEMS = 200;
@@ -58,6 +60,21 @@ function keyOf(item: Pick<PriceItem, "region" | "product" | "unit">): string {
  * photo, so everything is treated as untrusted: types, ranges and lengths
  * are enforced here before anything is stored or shown.
  */
+/** Accepts "19.11.2026" (or ISO) and returns "2026-11-19", or null if it is not a real date. */
+export function parsePriceDate(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const text = value.trim();
+  let y: number, m: number, d: number;
+  const dotted = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/.exec(text);
+  const iso = /^(\d{4})-(\d{2})-(\d{2})$/.exec(text);
+  if (dotted) [d, m, y] = [Number(dotted[1]), Number(dotted[2]), Number(dotted[3])];
+  else if (iso) [y, m, d] = [Number(iso[1]), Number(iso[2]), Number(iso[3])];
+  else return null;
+  const date = new Date(Date.UTC(y, m - 1, d));
+  if (date.getUTCFullYear() !== y || date.getUTCMonth() !== m - 1 || date.getUTCDate() !== d) return null;
+  return `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+}
+
 export function validateItems(raw: unknown): ValidationResult {
   const list =
     Array.isArray(raw)
@@ -86,7 +103,11 @@ export function validateItems(raw: unknown): ValidationResult {
     const item: PriceItem = { region, product, price, unit };
     byKey.set(keyOf(item), item);
   }
-  return { ok: true, items: [...byKey.values()] };
+  const priceDate =
+    raw && typeof raw === "object" && !Array.isArray(raw)
+      ? parsePriceDate((raw as { price_date?: unknown }).price_date)
+      : null;
+  return { ok: true, items: [...byKey.values()], priceDate };
 }
 
 /** Lists items whose price moved by more than `threshold` (0.1 = 10%). */
@@ -120,11 +141,19 @@ const nf = new Intl.NumberFormat("uk-UA", { minimumFractionDigits: 2, maximumFra
 export const formatPrice = (n: number) => nf.format(n);
 
 /** Plain-text summary for the Telegram confirmation message (no markup). */
-export function formatSummary(items: PriceItem[], changes: PriceChange[]): string {
-  const lines = items.map(
-    (i) => `${i.region ? i.region + " · " : ""}${i.product}: ${formatPrice(i.price)} ${i.unit}`,
-  );
-  let text = `Розпізнано рядків: ${items.length}\n\n${lines.join("\n")}`;
+export function formatSummary(items: PriceItem[], changes: PriceChange[], priceDate?: string | null): string {
+  const units = new Set(items.map((i) => i.unit));
+  const singleUnit = units.size === 1 ? [...units][0] : null;
+  const lines = groupByRegion(items).map((group) => {
+    const cells = group.items
+      .map((i) => `${i.product} ${formatPrice(i.price)}${singleUnit ? "" : " " + i.unit}`)
+      .join("; ");
+    return group.region ? `${group.region}: ${cells}` : cells;
+  });
+  const dateText = priceDate ? `Дата в таблиці: ${formatDate(priceDate)}\n` : "";
+  let text =
+    `Розпізнано рядків: ${items.length}\n${dateText}${singleUnit ? `Одиниця: ${singleUnit}\n` : ""}\n` +
+    lines.join("\n");
   if (changes.length) {
     text +=
       "\n\nУвага, різка зміна ціни (більше 10%):\n" +
@@ -139,7 +168,51 @@ export function formatSummary(items: PriceItem[], changes: PriceChange[]): strin
   return text.length > 3800 ? text.slice(0, 3790) + "…" : text;
 }
 
-/** Groups items by region for display; items without a region go first. */
+/** "2026-11-19" -> "19 листопада 2026 р." */
+export function formatDate(iso: string): string {
+  return new Date(iso + "T12:00:00Z").toLocaleDateString("uk-UA", {
+    timeZone: "UTC",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+export type PriceMatrix = {
+  products: { name: string; unit: string }[];
+  rows: { region: string | null; cells: (number | null)[] }[];
+};
+
+/**
+ * Pivots items into a region x product grid. Order follows the original table
+ * (first appearance), so the website reads like the photo that was sent.
+ */
+export function toMatrix(items: PriceItem[]): PriceMatrix {
+  const products: PriceMatrix["products"] = [];
+  const productIndex = new Map<string, number>();
+  const rowIndex = new Map<string | null, PriceMatrix["rows"][number]>();
+  const rows: PriceMatrix["rows"] = [];
+
+  for (const item of items) {
+    const pKey = `${item.product}|${item.unit}`.toLowerCase();
+    if (!productIndex.has(pKey)) {
+      productIndex.set(pKey, products.length);
+      products.push({ name: item.product, unit: item.unit });
+    }
+  }
+  for (const item of items) {
+    let row = rowIndex.get(item.region);
+    if (!row) {
+      row = { region: item.region, cells: products.map(() => null) };
+      rowIndex.set(item.region, row);
+      rows.push(row);
+    }
+    row.cells[productIndex.get(`${item.product}|${item.unit}`.toLowerCase())!] = item.price;
+  }
+  return { products, rows };
+}
+
+/** Groups items by region, keeping the order of the original table. */
 export function groupByRegion(items: PriceItem[]): { region: string | null; items: PriceItem[] }[] {
   const groups = new Map<string | null, PriceItem[]>();
   for (const item of items) {
@@ -147,7 +220,5 @@ export function groupByRegion(items: PriceItem[]): { region: string | null; item
     list.push(item);
     groups.set(item.region, list);
   }
-  return [...groups.entries()]
-    .sort(([a], [b]) => (a === null ? -1 : b === null ? 1 : a.localeCompare(b, "uk")))
-    .map(([region, list]) => ({ region, items: list }));
+  return [...groups.entries()].map(([region, list]) => ({ region, items: list }));
 }

@@ -1,5 +1,5 @@
 import { company } from "@/lib/site";
-import { formatPrice, groupByRegion, type PriceSnapshot } from "@/lib/prices";
+import { formatDate, formatPrice, toMatrix, type PriceSnapshot } from "@/lib/prices";
 
 export function PriceTable({ snapshot }: { snapshot: PriceSnapshot | null }) {
   if (!snapshot || snapshot.items.length === 0) {
@@ -16,41 +16,45 @@ export function PriceTable({ snapshot }: { snapshot: PriceSnapshot | null }) {
     );
   }
 
-  const updated = new Date(snapshot.updatedAt).toLocaleString("uk-UA", {
-    timeZone: "Europe/Kyiv",
-    dateStyle: "long",
-    timeStyle: "short",
-  });
+  const matrix = toMatrix(snapshot.items);
+  const asOf = snapshot.priceDate
+    ? formatDate(snapshot.priceDate)
+    : new Date(snapshot.updatedAt).toLocaleDateString("uk-UA", {
+        timeZone: "Europe/Kyiv",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
 
   return (
     <div>
       <p className="prices-updated">
-        Оновлено: <time dateTime={snapshot.updatedAt}>{updated}</time>
+        Ціни станом на <time dateTime={snapshot.priceDate ?? snapshot.updatedAt}>{asOf}</time>
       </p>
-      <div className="price-groups">
-        {groupByRegion(snapshot.items).map((group) => (
-          <section className="price-group" key={group.region ?? "all"}>
-            <h3>{group.region ?? "Усі регіони"}</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Паливо</th>
-                  <th scope="col">Ціна</th>
-                </tr>
-              </thead>
-              <tbody>
-                {group.items.map((item) => (
-                  <tr key={`${item.product}-${item.unit}`}>
-                    <th scope="row">{item.product}</th>
-                    <td>
-                      <b>{formatPrice(item.price)}</b> <span>{item.unit}</span>
-                    </td>
-                  </tr>
+      <div className="table-scroll" role="region" aria-label="Таблиця цін за регіонами" tabIndex={0}>
+        <table className="price-matrix">
+          <thead>
+            <tr>
+              <th scope="col">Регіон</th>
+              {matrix.products.map((p) => (
+                <th scope="col" key={`${p.name}-${p.unit}`}>
+                  {p.name}
+                  <span>{p.unit}</span>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {matrix.rows.map((row) => (
+              <tr key={row.region ?? "all"}>
+                <th scope="row">{row.region ?? "Усі регіони"}</th>
+                {row.cells.map((cell, i) => (
+                  <td key={i}>{cell === null ? "—" : formatPrice(cell)}</td>
                 ))}
-              </tbody>
-            </table>
-          </section>
-        ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
