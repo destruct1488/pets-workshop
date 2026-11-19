@@ -29,11 +29,7 @@ export default async function Home() {
             ))}
           </nav>
           <div className="header-brand-right">
-            <span className="flag-ua" aria-hidden="true">
-              <span />
-              <span />
-            </span>
-            <span className="header-legal">LLC «{company.nameLatin}»</span>
+            <img className="header-logo" src="/tok-logo.png" alt="TOK" width={381} height={366} />
           </div>
         </div>
       </header>

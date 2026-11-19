@@ -878,3 +878,11 @@ a {
   }
 }
 
+
+/* Header logo (TOK) in place of the flag */
+.header-logo {
+  display: block;
+  width: 96px;
+  height: auto;
+}
+
