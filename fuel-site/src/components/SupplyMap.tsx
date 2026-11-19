@@ -17,10 +17,10 @@ const LAND_CRIMEA =
   "L231 175 L232 167 Z";
 
 const origins = [
-  { name: "Німеччина", x: -36, y: 67, labelX: -36, labelY: 56, anchor: "start", route: "M-36 67 C20 60 120 70 203 98" },
-  { name: "Латвія", x: 113, y: 2, labelX: 122, labelY: 6, anchor: "start", route: "M113 2 C130 30 170 60 203 98" },
-  { name: "Литва", x: 127, y: 34, labelX: 127, labelY: 22, anchor: "middle", route: "M127 34 C150 45 180 70 203 98" },
-  { name: "Польща", x: 70, y: 71, labelX: 70, labelY: 60, anchor: "middle", route: "M70 71 C120 75 170 90 203 98" },
+  { name: "Німеччина", x: -8, y: 60, labelX: -8, labelY: 46, anchor: "start", route: "M-8 60 C40 58 130 72 203 98" },
+  { name: "Латвія", x: 113, y: 2, labelX: 104, labelY: 6, anchor: "end", route: "M113 2 C130 30 170 60 203 98" },
+  { name: "Литва", x: 127, y: 34, labelX: 136, labelY: 38, anchor: "start", route: "M127 34 C150 45 180 70 203 98" },
+  { name: "Польща", x: 70, y: 71, labelX: 70, labelY: 89, anchor: "middle", route: "M70 71 C120 75 170 90 203 98" },
   { name: "Молдова", x: 150, y: 150, labelX: 142, labelY: 146, anchor: "end", route: "M150 150 C165 135 185 115 203 98" },
   { name: "Румунія", x: 141, y: 202, labelX: 152, labelY: 206, anchor: "start", route: "M141 202 C165 165 190 125 203 98" },
   { name: "Греція", x: 90, y: 259, labelX: 100, labelY: 263, anchor: "start", route: "M90 259 C130 225 175 165 203 98" },
@@ -42,7 +42,7 @@ export function SupplyMap() {
   return (
     <svg
       className="supply-map"
-      viewBox="-50 -12 410 316"
+      viewBox="-16 -14 362 318"
       role="img"
       aria-label="Схема постачання: нафтопродукти з Німеччини, Латвії, Литви, Польщі, Молдови, Румунії та Греції надходять до Києва і далі в регіони України"
     >
