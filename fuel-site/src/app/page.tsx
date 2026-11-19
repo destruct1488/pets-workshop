@@ -40,8 +40,9 @@ export default async function Home() {
             <div className="hero-copy">
               <h1>Оптові поставки нафтопродуктів з Європи: прозора якість на кожному етапі</h1>
               <p>
-                {company.name} імпортує світлі нафтопродукти і доставляє їх власними бензовозами,
-                залізницею, річковим та морським транспортом у місце, вказане в договорі.
+                {company.name} імпортує світлі нафтопродукти з ЄС і доставляє їх власними бензовозами,
+                залізницею, річковим та морським транспортом по всій Україні: від Києва до Львова,
+                Одеси та Харкова, у місце, вказане в договорі.
               </p>
               <div className="hero-actions">
                 <a className="button button-solid" href={mainPhone.href}>
@@ -91,6 +92,16 @@ export default async function Home() {
                 </li>
               ))}
             </ul>
+            <div className="regions">
+              <p className="quality-label">Доставляємо в усі регіони України</p>
+              <ul className="chips">
+                {["Київ", "Львів", "Вінниця", "Чернігів", "Одеса", "Дніпро", "Запоріжжя", "Харків", "і далі за маршрутом"].map(
+                  (city) => (
+                    <li key={city}>{city}</li>
+                  ),
+                )}
+              </ul>
+            </div>
           </div>
         </section>
 

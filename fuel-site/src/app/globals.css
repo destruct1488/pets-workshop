@@ -276,6 +276,37 @@ a {
   stroke-width: 5px;
   stroke-linejoin: round;
 }
+.map-land {
+  fill: var(--tint);
+  stroke: var(--line);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+.map-route {
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+.map-distribution {
+  fill: none;
+  stroke: var(--brand-deep);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+  opacity: 0.6;
+}
+.map-city {
+  fill: var(--brand-deep);
+}
+.map-city-label {
+  font-family: var(--font);
+  font-size: 12px;
+  fill: var(--ink);
+  paint-order: stroke;
+  stroke: var(--surface);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
 
 .facts {
   display: grid;
