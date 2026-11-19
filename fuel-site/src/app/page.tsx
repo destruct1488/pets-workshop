@@ -67,7 +67,7 @@ export default async function Home() {
             <PriceTable snapshot={prices} />
             <div className="telegram-cta">
               <a className="button button-solid" href={company.telegramUrl} rel="noopener noreferrer" target="_blank">
-                Ціни за регіонами в Telegram
+                Бажаєш знижку? Тисни!
               </a>
             </div>
           </div>
