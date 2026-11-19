@@ -3,6 +3,7 @@ import { PriceTable } from "@/components/PriceTable";
 import { SupplyMap } from "@/components/SupplyMap";
 import { TransportIcon } from "@/components/TransportIcon";
 import { company, facts, mainPhone, navLinks, originCountries, phoneGroups, transport } from "@/lib/site";
+import { FALLBACK_PRICES } from "@/lib/fallback-prices";
 import { getCurrentPrices } from "@/lib/store";
 
 // Prices are refreshed right after publishing (revalidatePath in the bot);
@@ -10,7 +11,7 @@ import { getCurrentPrices } from "@/lib/store";
 export const revalidate = 300;
 
 export default async function Home() {
-  const prices = await getCurrentPrices();
+  const prices = (await getCurrentPrices()) ?? FALLBACK_PRICES;
 
   return (
     <>
