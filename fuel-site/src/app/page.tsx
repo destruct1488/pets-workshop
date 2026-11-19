@@ -43,14 +43,6 @@ export default async function Home() {
           <div className="container hero-grid">
             <div className="hero-copy">
               <h1>Оптові поставки нафтопродуктів з Європи: прозора якість на кожному етапі</h1>
-              <div className="hero-actions">
-                <a className="button button-solid" href={mainPhone.href}>
-                  Зателефонувати
-                </a>
-                <a className="button button-line" href="#prices">
-                  Актуальні ціни
-                </a>
-              </div>
               <p>
                 {company.name} імпортує світлі нафтопродукти з ЄС і доставляє їх власними бензовозами,
                 залізницею, річковим та морським транспортом по всій Україні: від Києва до Львова,
