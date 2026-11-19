@@ -1,22 +1,32 @@
 /**
  * Schematic view (not to scale) of supply lines: EU origins -> Kyiv hub -> regions of Ukraine.
- * The Ukraine outline is a rough simplified shape, Crimea is not drawn.
+ * Ukraine is drawn with a simplified but complete outline: the eastern border with
+ * Russia, the Azov coast and Crimea are included. Only the regional centres are labelled.
  */
 
-const LAND =
-  "M92 129 L105 132 L112 136 L129 136 L148 131 L162 129 L171 134 L185 135 L192 146 L192 162 " +
-  "L178 174 L190 177 L203 165 L206 158 L224 162 L241 164 L259 164 L272 155 L286 156 L301 141 " +
-  "L311 141 L326 138 L339 128 L333 114 L316 107 L300 101 L283 98 L266 89 L259 75 L238 72 " +
-  "L225 75 L210 80 L196 84 L176 81 L154 80 L120 77 L105 81 L109 93 L105 101 L95 107 L92 114 L92 125 Z";
+const LAND_MAIN =
+  "M86 129 L92 119 L92 111 L101 106 L106 99 L112 94 L111 88 L108 82 L121 78 L133 78 L147 80 " +
+  "L161 81 L176 81 L189 77 L203 74 L217 74 L231 71 L245 71 L258 71 L266 75 L270 84 L279 92 " +
+  "L288 96 L298 102 L311 107 L325 113 L337 117 L339 126 L331 135 L322 142 L316 146 L311 147 " +
+  "L301 150 L291 155 L274 161 L265 164 L252 165 L241 165 L232 156 L224 158 L210 156 L206 158 " +
+  "L196 165 L190 174 L192 177 L178 179 L171 137 L162 129 L148 131 L139 137 L129 137 L119 134 " +
+  "L105 135 Z";
+
+const LAND_CRIMEA =
+  "M245 167 L258 164 L267 173 L273 179 L288 174 L287 180 L279 188 L266 189 L255 189 L245 188 " +
+  "L231 175 L232 167 Z";
 
 const origins = [
-  { name: "Литва", x: 127, y: 34, labelX: 127, labelY: 22, anchor: "middle", route: "M127 34 C150 40 180 60 206 100" },
-  { name: "Польща", x: 70, y: 71, labelX: 70, labelY: 60, anchor: "middle", route: "M70 71 C110 70 170 90 206 100" },
-  { name: "Румунія", x: 141, y: 202, labelX: 152, labelY: 206, anchor: "start", route: "M141 202 C160 170 185 130 206 100" },
-  { name: "Греція", x: 90, y: 259, labelX: 100, labelY: 263, anchor: "start", route: "M90 259 C120 230 170 190 206 100" },
+  { name: "Німеччина", x: -36, y: 67, labelX: -36, labelY: 56, anchor: "start", route: "M-36 67 C20 60 120 70 203 98" },
+  { name: "Латвія", x: 113, y: 2, labelX: 122, labelY: 6, anchor: "start", route: "M113 2 C130 30 170 60 203 98" },
+  { name: "Литва", x: 127, y: 34, labelX: 127, labelY: 22, anchor: "middle", route: "M127 34 C150 45 180 70 203 98" },
+  { name: "Польща", x: 70, y: 71, labelX: 70, labelY: 60, anchor: "middle", route: "M70 71 C120 75 170 90 203 98" },
+  { name: "Молдова", x: 150, y: 150, labelX: 142, labelY: 146, anchor: "end", route: "M150 150 C165 135 185 115 203 98" },
+  { name: "Румунія", x: 141, y: 202, labelX: 152, labelY: 206, anchor: "start", route: "M141 202 C165 165 190 125 203 98" },
+  { name: "Греція", x: 90, y: 259, labelX: 100, labelY: 263, anchor: "start", route: "M90 259 C130 225 175 165 203 98" },
 ] as const;
 
-const KYIV = { x: 206, y: 100 };
+const KYIV = { x: 203, y: 98 };
 
 const regions = [
   { name: "Львів", x: 112, y: 109, lx: 104, ly: 104, anchor: "end" },
@@ -32,18 +42,15 @@ export function SupplyMap() {
   return (
     <svg
       className="supply-map"
-      viewBox="30 8 330 292"
+      viewBox="-50 -12 410 316"
       role="img"
-      aria-label="Схема постачання: нафтопродукти з Литви, Польщі, Румунії та Греції надходять до Києва і далі в регіони України: Львів, Вінниця, Чернігів, Одеса, Дніпро, Запоріжжя, Харків"
+      aria-label="Схема постачання: нафтопродукти з Німеччини, Латвії, Литви, Польщі, Молдови, Румунії та Греції надходять до Києва і далі в регіони України"
     >
-      <path d={LAND} className="map-land" />
+      <path d={LAND_MAIN} className="map-land" />
+      <path d={LAND_CRIMEA} className="map-land" />
 
       {regions.map((r) => (
-        <path
-          key={`line-${r.name}`}
-          d={`M${KYIV.x} ${KYIV.y} L${r.x} ${r.y}`}
-          className="map-distribution"
-        />
+        <path key={`line-${r.name}`} d={`M${KYIV.x} ${KYIV.y} L${r.x} ${r.y}`} className="map-distribution" />
       ))}
 
       {origins.map((o) => (
