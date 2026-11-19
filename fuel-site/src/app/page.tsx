@@ -48,7 +48,12 @@ export default async function Home() {
                 <a className="button button-solid" href={mainPhone.href}>
                   Зателефонувати
                 </a>
-                <a className="button button-line" href="#prices">
+                <a
+                  className="button button-line"
+                  href={company.telegramUrl}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
                   Актуальні ціни
                 </a>
               </div>
