@@ -171,6 +171,24 @@ a {
   color: var(--ink);
   border-bottom-color: var(--brand);
 }
+/* Only "Ціни" and "Контакти" remain: make them large, bold buttons */
+.nav {
+  gap: 12px;
+}
+.nav a {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: var(--brand);
+  padding: 10px 22px;
+  border-radius: 999px;
+  border-bottom: none;
+}
+.nav a:hover {
+  color: #ffffff;
+  background: var(--brand-deep);
+  border-bottom-color: transparent;
+}
 
 .button {
   display: inline-flex;

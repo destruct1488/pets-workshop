@@ -53,9 +53,6 @@ export const originCountries = [
 ] as const;
 
 export const navLinks = [
-  { href: "#about", label: "Про компанію" },
-  { href: "#supply", label: "Постачання" },
-  { href: "#quality", label: "Якість" },
   { href: "#prices", label: "Ціни" },
   { href: "#contacts", label: "Контакти" },
 ] as const;
