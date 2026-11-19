@@ -258,7 +258,7 @@ a {
 .map-node {
   fill: var(--surface);
   stroke: var(--ink);
-  stroke-width: 2.5;
+  stroke-width: 5;
 }
 .map-hub {
   fill: rgba(11, 138, 73, 0.16);
@@ -268,41 +268,45 @@ a {
 }
 .map-label {
   font-family: var(--font);
-  font-size: 15px;
+  font-size: 30px;
   font-weight: 500;
   fill: var(--ink);
+  paint-order: stroke;
+  stroke: var(--surface);
+  stroke-width: 6px;
+  stroke-linejoin: round;
 }
 .map-label-strong {
   font-weight: 700;
-  font-size: 17px;
+  font-size: 36px;
 }
 .map-note {
   font-family: var(--font);
-  font-size: 13px;
+  font-size: 26px;
   fill: var(--muted);
   /* surface-coloured halo keeps the text readable where lines pass behind it */
   paint-order: stroke;
   stroke: var(--surface);
-  stroke-width: 5px;
+  stroke-width: 8px;
   stroke-linejoin: round;
 }
 .map-land {
   fill: var(--tint);
   stroke: var(--line);
-  stroke-width: 1.5;
+  stroke-width: 2;
   stroke-linejoin: round;
 }
 .map-route {
   fill: none;
   stroke: var(--brand);
-  stroke-width: 2.5;
+  stroke-width: 5;
   stroke-linecap: round;
 }
 .map-distribution {
   fill: none;
   stroke: var(--brand-deep);
-  stroke-width: 1.5;
-  stroke-dasharray: 4 4;
+  stroke-width: 3;
+  stroke-dasharray: 8 8;
   opacity: 0.6;
 }
 .map-city {
@@ -310,11 +314,11 @@ a {
 }
 .map-city-label {
   font-family: var(--font);
-  font-size: 12px;
+  font-size: 24px;
   fill: var(--ink);
   paint-order: stroke;
   stroke: var(--surface);
-  stroke-width: 4px;
+  stroke-width: 6px;
   stroke-linejoin: round;
 }
 

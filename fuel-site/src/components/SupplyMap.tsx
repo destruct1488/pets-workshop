@@ -1,53 +1,46 @@
+import { UKRAINE_PATHS } from "@/components/ukraine-paths";
+
 /**
- * Schematic view (not to scale) of supply lines: EU origins -> Kyiv hub -> regions of Ukraine.
- * Ukraine is drawn with a simplified but complete outline: the eastern border with
- * Russia, the Azov coast and Crimea are included. Only the regional centres are labelled.
+ * Schematic supply map: EU origins -> Kyiv hub -> regions of Ukraine.
+ * Ukraine uses real region outlines (see ukraine-paths.ts, CC BY 4.0).
+ * Origins are placed around the map, not at their true positions.
  */
 
-const LAND_MAIN =
-  "M86 129 L92 119 L92 111 L101 106 L106 99 L112 94 L111 88 L108 82 L121 78 L133 78 L147 80 " +
-  "L161 81 L176 81 L189 77 L203 74 L217 74 L231 71 L245 71 L258 71 L266 75 L270 84 L279 92 " +
-  "L288 96 L298 102 L311 107 L325 113 L337 117 L339 126 L331 135 L322 142 L316 146 L311 147 " +
-  "L301 150 L291 155 L274 161 L265 164 L252 165 L241 165 L232 156 L224 158 L210 156 L206 158 " +
-  "L196 165 L190 174 L192 177 L178 179 L171 137 L162 129 L148 131 L139 137 L129 137 L119 134 " +
-  "L105 135 Z";
-
-const LAND_CRIMEA =
-  "M245 167 L258 164 L267 173 L273 179 L288 174 L287 180 L279 188 L266 189 L255 189 L245 188 " +
-  "L231 175 L232 167 Z";
-
 const origins = [
-  { name: "Німеччина", x: -8, y: 60, labelX: -8, labelY: 46, anchor: "start", route: "M-8 60 C40 58 130 72 203 98" },
-  { name: "Латвія", x: 113, y: 2, labelX: 104, labelY: 6, anchor: "end", route: "M113 2 C130 30 170 60 203 98" },
-  { name: "Литва", x: 127, y: 34, labelX: 136, labelY: 38, anchor: "start", route: "M127 34 C150 45 180 70 203 98" },
-  { name: "Польща", x: 70, y: 71, labelX: 70, labelY: 89, anchor: "middle", route: "M70 71 C120 75 170 90 203 98" },
-  { name: "Молдова", x: 150, y: 150, labelX: 142, labelY: 146, anchor: "end", route: "M150 150 C165 135 185 115 203 98" },
-  { name: "Румунія", x: 141, y: 202, labelX: 152, labelY: 206, anchor: "start", route: "M141 202 C165 165 190 125 203 98" },
-  { name: "Греція", x: 90, y: 259, labelX: 100, labelY: 263, anchor: "start", route: "M90 259 C130 225 175 165 203 98" },
+  { name: "Німеччина", x: -120, y: 120, labelX: -120, labelY: 92, anchor: "start", route: "M-120 120 C60 100 300 120 465 163" },
+  { name: "Польща", x: -60, y: 230, labelX: -60, labelY: 268, anchor: "middle", route: "M-60 230 C150 230 350 200 465 163" },
+  { name: "Латвія", x: 40, y: -150, labelX: 40, labelY: -176, anchor: "middle", route: "M40 -150 C200 -120 400 40 465 163" },
+  { name: "Литва", x: 170, y: -60, labelX: 184, labelY: -52, anchor: "start", route: "M170 -60 C260 -10 380 80 465 163" },
+  { name: "Молдова", x: 330, y: 540, labelX: 300, labelY: 534, anchor: "end", route: "M330 540 C380 420 430 280 465 163" },
+  { name: "Румунія", x: 240, y: 760, labelX: 256, labelY: 766, anchor: "start", route: "M240 760 C330 620 420 300 465 163" },
+  { name: "Греція", x: 120, y: 930, labelX: 136, labelY: 936, anchor: "start", route: "M120 930 C230 720 380 350 465 163" },
 ] as const;
 
-const KYIV = { x: 203, y: 98 };
+const KYIV = { x: 465, y: 163 };
 
 const regions = [
-  { name: "Львів", x: 112, y: 109, lx: 104, ly: 104, anchor: "end" },
-  { name: "Вінниця", x: 176, y: 118, lx: 176, ly: 136, anchor: "middle" },
-  { name: "Чернігів", x: 214, y: 83, lx: 214, ly: 72, anchor: "middle" },
-  { name: "Одеса", x: 209, y: 157, lx: 209, ly: 176, anchor: "middle" },
-  { name: "Дніпро", x: 269, y: 131, lx: 278, ly: 128, anchor: "start" },
-  { name: "Запоріжжя", x: 270, y: 140, lx: 278, ly: 152, anchor: "start" },
-  { name: "Харків", x: 286, y: 101, lx: 296, ly: 105, anchor: "start" },
+  { name: "Львів", x: 108, y: 213, lx: 92, ly: 206, anchor: "end" },
+  { name: "Вінниця", x: 353, y: 264, lx: 353, ly: 300, anchor: "middle" },
+  { name: "Чернігів", x: 508, y: 75, lx: 524, ly: 70, anchor: "start" },
+  { name: "Одеса", x: 478, y: 495, lx: 478, ly: 530, anchor: "middle" },
+  { name: "Дніпро", x: 716, y: 327, lx: 736, ly: 332, anchor: "start" },
+  { name: "Запоріжжя", x: 722, y: 379, lx: 742, ly: 386, anchor: "start" },
+  { name: "Харків", x: 782, y: 198, lx: 804, ly: 206, anchor: "start" },
 ] as const;
 
 export function SupplyMap() {
   return (
     <svg
       className="supply-map"
-      viewBox="-16 -14 362 318"
+      viewBox="-220 -230 1300 1190"
       role="img"
       aria-label="Схема постачання: нафтопродукти з Німеччини, Латвії, Литви, Польщі, Молдови, Румунії та Греції надходять до Києва і далі в регіони України"
     >
-      <path d={LAND_MAIN} className="map-land" />
-      <path d={LAND_CRIMEA} className="map-land" />
+      <g className="map-land">
+        {UKRAINE_PATHS.map((d, i) => (
+          <path key={i} d={d} />
+        ))}
+      </g>
 
       {regions.map((r) => (
         <path key={`line-${r.name}`} d={`M${KYIV.x} ${KYIV.y} L${r.x} ${r.y}`} className="map-distribution" />
@@ -56,7 +49,7 @@ export function SupplyMap() {
       {origins.map((o) => (
         <g key={o.name}>
           <path d={o.route} className="map-route" />
-          <circle cx={o.x} cy={o.y} r="6" className="map-node" />
+          <circle cx={o.x} cy={o.y} r="13" className="map-node" />
           <text x={o.labelX} y={o.labelY} textAnchor={o.anchor} className="map-label">
             {o.name}
           </text>
@@ -65,19 +58,19 @@ export function SupplyMap() {
 
       {regions.map((r) => (
         <g key={r.name}>
-          <circle cx={r.x} cy={r.y} r="4" className="map-city" />
+          <circle cx={r.x} cy={r.y} r="9" className="map-city" />
           <text x={r.lx} y={r.ly} textAnchor={r.anchor} className="map-city-label">
             {r.name}
           </text>
         </g>
       ))}
 
-      <circle cx={KYIV.x} cy={KYIV.y} r="11" className="map-hub" />
-      <circle cx={KYIV.x} cy={KYIV.y} r="5" className="map-hub-core" />
-      <text x={KYIV.x - 14} y={KYIV.y - 6} textAnchor="end" className="map-label map-label-strong">
+      <circle cx={KYIV.x} cy={KYIV.y} r="24" className="map-hub" />
+      <circle cx={KYIV.x} cy={KYIV.y} r="11" className="map-hub-core" />
+      <text x={KYIV.x - 34} y={KYIV.y - 4} textAnchor="end" className="map-label map-label-strong">
         Київ
       </text>
-      <text x={200} y={292} textAnchor="middle" className="map-note">
+      <text x={550} y={1010} textAnchor="middle" className="map-note">
         Доставка по всій Україні
       </text>
     </svg>

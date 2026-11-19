@@ -172,6 +172,7 @@ export default async function Home() {
             © {new Date().getFullYear()} {company.legalName}
           </span>
           <span>Прозора якість та контроль на кожному етапі постачання</span>
+          <span>Контур карти України: MapSVG, CC BY 4.0</span>
         </div>
       </footer>
     </>
