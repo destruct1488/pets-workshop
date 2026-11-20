@@ -1,0 +1,8 @@
+name = "tg-gemini-bot"
+main = "src/entry.py"
+compatibility_date = "2025-08-01"
+compatibility_flags = ["python_workers"]
+
+[[kv_namespaces]]
+binding = "USAGE"
+id = "ВСТАВЬ_ID_ПОСЛЕ_СОЗДАНИЯ"
