@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Візитка Артем класика</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --bone:#efebe0; --ink:#2e2c28; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  @page{size:90mm 50mm;margin:0}
+  body{background:#5b4a3a;display:flex;flex-direction:column;align-items:center;gap:10mm;padding:10mm}
+  @media print{body{background:none;padding:0;gap:0}.card{box-shadow:none!important;page-break-after:always}}
+
+  .card{width:90mm;height:50mm;position:relative;overflow:hidden;color:var(--ink);
+        font-family:'Cormorant SC',serif;font-weight:500;
+        background:radial-gradient(ellipse at 30% 20%,#f5f2ea 0,transparent 70%),var(--bone);
+        box-shadow:0 2.5mm 6mm rgba(0,0,0,.45)}
+  /* cotton-paper grain */
+  .card::before{content:"";position:absolute;inset:0;opacity:.45;mix-blend-mode:multiply;pointer-events:none;
+     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .52 0 0 0 0 .46 0 0 0 .35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  /* letterpress: slight debossed look */
+  .lp{text-shadow:0 .08mm 0 rgba(255,255,255,.7), 0 -.04mm 0 rgba(0,0,0,.12)}
+
+  .phone{position:absolute;left:6mm;top:5mm;font-size:2.6mm;letter-spacing:.15mm;line-height:1}
+  .phone small{display:block;font-size:1.65mm;letter-spacing:.15mm;margin-top:.5mm}
+  .firm{position:absolute;right:6mm;top:5mm;text-align:right;line-height:1}
+  .firm b{display:block;font-weight:600;font-size:3mm;letter-spacing:.2mm}
+  .firm small{display:block;font-size:1.65mm;letter-spacing:.15mm;margin-top:.5mm}
+
+  .center{position:absolute;left:0;right:0;top:18mm;text-align:center;line-height:1}
+  .center .name{font-weight:600;font-size:3.9mm;letter-spacing:.55mm}
+  .center .title{font-size:2.6mm;letter-spacing:.3mm;margin-top:1.3mm}
+
+  .bottom{position:absolute;left:6mm;right:6mm;bottom:5mm;display:flex;justify-content:center;align-items:flex-end;
+          font-size:1.8mm;letter-spacing:.1mm;white-space:nowrap}
+  .turn{display:flex;align-items:flex-end;gap:.8mm}
+  .turn svg{width:4.2mm;height:3mm;margin-bottom:.1mm}
+
+  /* back */
+  .back .center{top:auto;bottom:auto;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .back .head{font-weight:600;font-size:2.9mm;letter-spacing:.35mm}
+  .back .sub{font-size:2mm;letter-spacing:.2mm;margin-top:1mm}
+  .qr{width:17mm;height:17mm;margin:3mm 0 2.6mm;border:.12mm solid rgba(46,44,40,.5);display:grid;place-items:center;
+      font-size:1.6mm;letter-spacing:.2mm;color:rgba(46,44,40,.55)}
+  .back .foot{font-size:1.75mm;letter-spacing:.15mm}
+</style>
+</head>
+<body>
+
+<!-- FRONT -->
+<section class="card">
+  <div class="phone lp">+380 68 685 2994<small>Telegram @destruct_88</small></div>
+  <div class="firm lp"><b>Сайти для закладів</b><small>Розробка під ключ</small></div>
+
+  <div class="center lp">
+    <div class="name">АРТЕМ</div>
+    <div class="title">Веб-розробник</div>
+  </div>
+
+  <div class="bottom lp">
+        <span class="turn">Безкоштовна демо-версія сайту для вашого закладу — на звороті
+      <svg viewBox="0 0 28 20" fill="none" stroke="#2e2c28" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 18 C 10 18, 20 15, 23 5"/><path d="M19 7.5 L23 4 L26 8.5"/>
+      </svg>
+    </span>
+  </div>
+</section>
+
+<!-- BACK -->
+<section class="card back">
+  <div class="center lp">
+    <div class="head">Демо-версія сайту</div>
+    <div class="sub">для вашого закладу · безкоштовно</div>
+    <div class="qr">QR-код</div>
+    <div class="foot">Артем · Telegram @destruct_88</div>
+  </div>
+</section>
+
+</body>
+</html>

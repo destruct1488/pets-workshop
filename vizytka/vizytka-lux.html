@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Візитка Артем люкс</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:#0a1428;
+    --navy:#101f3c;
+    --pearl:#f4f1ea;
+    --silver:#b9c3d4;
+    --line:rgba(185,195,212,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  @page{size:90mm 50mm;margin:0}
+  body{background:#d9d6cf;display:flex;flex-direction:column;align-items:center;gap:10mm;padding:10mm}
+  @media print{body{background:none;padding:0;gap:0}.card{box-shadow:none!important;page-break-after:always}}
+  .card{width:90mm;height:50mm;position:relative;overflow:hidden;box-shadow:0 3mm 8mm rgba(10,20,40,.35)}
+  .serif{font-family:'Cormorant Garamond',serif}
+  .sans{font-family:'Montserrat',sans-serif}
+
+  /* ---------- FRONT: midnight ---------- */
+  .front{background:
+      radial-gradient(ellipse at 20% 0%, #1b2f57 0, transparent 60%),
+      radial-gradient(ellipse at 100% 100%, #14254a 0, transparent 55%),
+      var(--night);color:var(--pearl)}
+  /* fine paper grain */
+  .front::before{content:"";position:absolute;inset:0;opacity:.35;mix-blend-mode:overlay;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+
+  .mono{position:absolute;left:7mm;top:6.5mm;width:7mm;height:7mm;border:.15mm solid var(--silver);border-radius:50%;
+      display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:4.2mm;color:var(--pearl);line-height:1}
+  .mono::after{content:"";position:absolute;inset:.6mm;border:.08mm solid var(--line);border-radius:50%}
+
+  .id{position:absolute;left:7mm;top:17.5mm}
+  .name{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:9mm;letter-spacing:1.6mm;line-height:1;color:var(--pearl)}
+  .role{font-family:'Montserrat',sans-serif;font-weight:300;font-size:1.75mm;letter-spacing:1.25mm;text-transform:uppercase;color:var(--silver);margin-top:2mm}
+
+  .hair{position:absolute;left:7mm;right:7mm;top:32.5mm;height:.1mm;background:linear-gradient(90deg,var(--silver),rgba(185,195,212,.15) 60%,transparent)}
+
+  .contacts{position:absolute;left:7mm;bottom:5.6mm;font-family:'Montserrat',sans-serif;font-weight:300;font-size:2.05mm;letter-spacing:.2mm;color:var(--pearl);
+      display:grid;grid-template-columns:auto auto;column-gap:2.4mm;row-gap:1.3mm;align-items:baseline}
+  .contacts span{font-size:1.45mm;letter-spacing:.7mm;color:var(--silver);text-transform:uppercase}
+
+  .promo{position:absolute;right:7mm;top:6.5mm;width:30mm;text-align:right}
+  .promo p{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:2.7mm;line-height:1.3;color:var(--pearl)}
+  .promo p em{font-style:normal;font-family:'Montserrat',sans-serif;font-weight:400;font-size:1.45mm;letter-spacing:.9mm;
+      text-transform:uppercase;color:var(--silver);display:block;margin-bottom:1.2mm}
+
+  .turn{position:absolute;right:7mm;bottom:5.2mm;display:flex;align-items:center;gap:1.6mm;
+      font-family:'Montserrat',sans-serif;font-weight:400;font-size:1.45mm;letter-spacing:.9mm;text-transform:uppercase;color:var(--silver)}
+  .turn svg{width:12mm;height:5mm;overflow:visible}
+
+  /* ---------- BACK: pearl ---------- */
+  .back{background:
+      radial-gradient(ellipse at 80% 20%, #fffdf8 0, transparent 60%),
+      var(--pearl);color:var(--navy)}
+  .back::before{content:"";position:absolute;inset:0;opacity:.25;mix-blend-mode:multiply;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E")}
+  .back .frame{position:absolute;inset:3mm;border:.1mm solid rgba(16,31,60,.28)}
+  .back .bigmono{position:absolute;left:-2mm;bottom:-10mm;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:46mm;line-height:1;
+      color:rgba(16,31,60,.025)}
+  .back .text{position:absolute;left:8mm;top:0;bottom:0;width:44mm;display:flex;flex-direction:column;justify-content:center}
+  .back .k{font-family:'Montserrat',sans-serif;font-weight:400;font-size:1.45mm;letter-spacing:.7mm;text-transform:uppercase;color:#6b7891;white-space:nowrap}
+  .back h2{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:5.2mm;line-height:1.12;margin:2mm 0 2.2mm;letter-spacing:.15mm}
+  .back h2 i{font-weight:300}
+  .back .rule{width:8mm;height:.1mm;background:var(--navy);opacity:.5;margin-bottom:2.2mm}
+  .back .s{font-family:'Montserrat',sans-serif;font-weight:300;font-size:1.8mm;line-height:1.6;letter-spacing:.15mm;color:#4a5670}
+  .back .sign{font-family:'Montserrat',sans-serif;font-weight:400;font-size:1.5mm;letter-spacing:.5mm;text-transform:uppercase;color:var(--navy);margin-top:2.4mm}
+
+  .qr{position:absolute;right:9mm;top:50%;transform:translateY(-50%);width:22mm;height:22mm;
+      display:grid;place-items:center;text-align:center;font-family:'Montserrat',sans-serif;font-weight:300;
+      font-size:1.35mm;letter-spacing:.6mm;text-transform:uppercase;color:#8b95a8}
+  .qr i{position:absolute;width:3mm;height:3mm;border-color:var(--navy);border-style:solid;border-width:0}
+  .qr .a{top:0;left:0;border-top-width:.15mm;border-left-width:.15mm}
+  .qr .b{top:0;right:0;border-top-width:.15mm;border-right-width:.15mm}
+  .qr .c{bottom:0;left:0;border-bottom-width:.15mm;border-left-width:.15mm}
+  .qr .d{bottom:0;right:0;border-bottom-width:.15mm;border-right-width:.15mm}
+</style>
+</head>
+<body>
+
+<!-- FRONT -->
+<section class="card front">
+  <div class="mono">А</div>
+
+  <div class="promo">
+    <p><em>Подарунок</em>Безкоштовна демо-версія<br>сайту для вашого закладу</p>
+  </div>
+
+  <div class="id">
+    <div class="name">Артем</div>
+    <div class="role">Веб-розробник</div>
+  </div>
+
+  <div class="hair"></div>
+
+  <div class="contacts">
+    <span>Tg</span><div>@destruct_88</div>
+    <span>Tel</span><div>+380 (68) 68-52-994</div>
+  </div>
+
+  <div class="turn">на звороті
+    <svg viewBox="0 0 48 20" fill="none" stroke="#b9c3d4" stroke-width=".7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M1 17 C 18 19, 36 17, 44 6"/>
+      <path d="M39.5 6.8 L44 6 L44.6 10.6"/>
+    </svg>
+  </div>
+</section>
+
+<!-- BACK -->
+<section class="card back">
+  <div class="bigmono">А</div>
+  <div class="frame"></div>
+  <div class="text">
+    <div class="k">Персональна пропозиція</div>
+    <h2>Демо-версія сайту<br><i>вашого закладу</i></h2>
+    <div class="rule"></div>
+    <div class="s">Відскануйте код, щоб побачити,<br>яким може бути ваш сайт.<br>Безкоштовно.</div>
+    <div class="sign">Артем · @destruct_88</div>
+  </div>
+  <div class="qr"><i class="a"></i><i class="b"></i><i class="c"></i><i class="d"></i>QR-код</div>
+</section>
+
+</body>
+</html>
