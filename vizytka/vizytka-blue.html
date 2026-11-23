@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Візитка Артем синя</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b1f4d;
+    --navy2:#143a8a;
+    --blue:#2f6bff;
+    --sky:#6fb3ff;
+    --ice:#eaf2ff;
+    --ink:#0f1d3a;
+    --muted:#6a7898;
+    --grad:linear-gradient(135deg,#0b1f4d 0%,#143a8a 55%,#2f6bff 100%);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  @page{size:90mm 50mm;margin:0}
+  body{background:#dfe6f2;font-family:'Manrope',sans-serif;color:var(--ink);
+       display:flex;flex-direction:column;align-items:center;gap:10mm;padding:10mm}
+  @media print{body{background:none;padding:0;gap:0}.card{box-shadow:none!important;page-break-after:always}}
+  .card{width:90mm;height:50mm;position:relative;overflow:hidden;background:#fff;
+        box-shadow:0 2mm 6mm rgba(11,31,77,.25)}
+
+  /* ---------- FRONT ---------- */
+  .front .dots{position:absolute;left:0;top:0;width:40mm;height:20mm;
+     background-image:radial-gradient(rgba(47,107,255,.18) .25mm,transparent .3mm);background-size:2.2mm 2.2mm;
+     -webkit-mask:linear-gradient(135deg,#000 0,transparent 70%);mask:linear-gradient(135deg,#000 0,transparent 70%)}
+  .panel{position:absolute;top:0;right:0;bottom:0;width:38mm;background:var(--grad);
+     clip-path:polygon(9mm 0,100% 0,100% 100%,0 100%)}
+  .panel::before{content:"";position:absolute;inset:0;
+     background:radial-gradient(circle at 85% 15%,rgba(111,179,255,.55) 0,transparent 45%),
+                repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 .3mm,transparent .3mm 2mm)}
+  .accent{position:absolute;top:0;bottom:0;right:37mm;width:1.4mm;background:linear-gradient(var(--sky),var(--blue));
+     clip-path:polygon(calc(100% - .4mm) 0,100% 0,.4mm 100%,0 100%);transform:translateX(-8.6mm) skewX(0)}
+
+  .content{position:absolute;left:7mm;top:7mm;bottom:6mm;width:46mm;display:flex;flex-direction:column}
+  .logo{width:6mm;height:6mm;border-radius:1.4mm;background:var(--grad);display:grid;place-items:center;
+     color:#fff;font-weight:800;font-size:2.4mm;letter-spacing:-.1mm;margin-bottom:2.4mm;box-shadow:0 .6mm 1.4mm rgba(47,107,255,.35)}
+  .name{font-weight:800;font-size:7.4mm;line-height:1;letter-spacing:-.2mm;color:var(--navy)}
+  .role{font-size:2.05mm;letter-spacing:.75mm;text-transform:uppercase;font-weight:600;margin-top:1.4mm;color:var(--blue)}
+  .line{width:9mm;height:.5mm;border-radius:.3mm;background:linear-gradient(90deg,var(--blue),var(--sky));margin:2.6mm 0 2.6mm}
+  .contacts{display:flex;flex-direction:column;gap:1.6mm;font-size:2.35mm;font-weight:600;color:var(--ink)}
+  .contacts div{display:flex;align-items:center;gap:1.8mm}
+  .ico{width:3.8mm;height:3.8mm;border-radius:1mm;background:var(--ice);display:grid;place-items:center;flex:none}
+  .ico svg{width:2.1mm;height:2.1mm;fill:var(--blue)}
+  .contacts small{font-size:1.6mm;color:var(--muted);font-weight:500;display:block;letter-spacing:.25mm;text-transform:uppercase}
+
+  .promo{position:absolute;right:4.5mm;top:0;bottom:0;width:24mm;display:flex;flex-direction:column;justify-content:center;color:#fff}
+  .badge{align-self:flex-start;font-size:1.55mm;font-weight:700;letter-spacing:.35mm;text-transform:uppercase;
+     background:rgba(255,255,255,.16);border:.15mm solid rgba(255,255,255,.35);padding:.6mm 1.3mm;border-radius:1mm;margin-bottom:1.8mm}
+  .promo h3{font-size:3.1mm;font-weight:800;line-height:1.15}
+  .promo p{font-size:2.05mm;line-height:1.35;opacity:.85;margin-top:1mm;font-weight:400}
+  .turn{display:flex;align-items:center;gap:1mm;margin-top:2.4mm;font-size:1.7mm;font-weight:700;letter-spacing:.45mm;text-transform:uppercase;color:#bfe0ff}
+  .turn svg{width:8mm;height:6mm}
+
+  /* ---------- BACK ---------- */
+  .back{background:var(--grad)}
+  .back::before{content:"";position:absolute;inset:0;
+     background:radial-gradient(circle at 12% 110%,rgba(111,179,255,.45) 0,transparent 40%),
+                radial-gradient(circle at 100% 0%,rgba(47,107,255,.6) 0,transparent 45%)}
+  .back .grid{position:absolute;inset:0;
+     background-image:linear-gradient(rgba(255,255,255,.05) .1mm,transparent .1mm),linear-gradient(90deg,rgba(255,255,255,.05) .1mm,transparent .1mm);
+     background-size:3mm 3mm;-webkit-mask:linear-gradient(90deg,transparent,#000 70%);mask:linear-gradient(90deg,transparent,#000 70%)}
+  .back .wrap{position:absolute;inset:0;display:flex;align-items:center;padding:0 6mm 0 7mm;gap:5mm;color:#fff}
+  .back .text{flex:1}
+  .back .kicker{font-size:1.7mm;letter-spacing:.7mm;text-transform:uppercase;color:var(--sky);font-weight:700}
+  .back h2{font-weight:800;font-size:4.6mm;line-height:1.1;margin:1.4mm 0 1.6mm;letter-spacing:-.1mm}
+  .back h2 span{color:#9fd0ff}
+  .back .sub{font-size:2mm;line-height:1.45;opacity:.82}
+  .back .tg{margin-top:2.4mm;display:inline-flex;align-items:center;gap:1.2mm;font-size:2mm;font-weight:700;
+     background:#fff;color:var(--navy);padding:1mm 2mm;border-radius:5mm}
+  .back .tg svg{width:2.2mm;height:2.2mm;fill:var(--blue)}
+  .qr{width:24mm;height:24mm;flex:none;background:#fff;border-radius:2.2mm;display:grid;place-items:center;text-align:center;
+      font-size:1.55mm;letter-spacing:.25mm;text-transform:uppercase;color:#93a3c4;font-weight:600;position:relative;
+      box-shadow:0 1.5mm 4mm rgba(0,0,0,.25)}
+  .qr::before{content:"";position:absolute;inset:2mm;border:.25mm dashed #b9c8e6;border-radius:1.2mm}
+</style>
+</head>
+<body>
+
+<!-- FRONT -->
+<section class="card front">
+  <div class="dots"></div>
+  <div class="panel"></div>
+
+  <div class="content">
+    <div class="logo">А</div>
+    <div class="name">Артем</div>
+    <div class="role">Веб-розробник</div>
+    <div class="line"></div>
+    <div class="contacts">
+      <div>
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.8c.9-.3 1.7.2 1.4 1.5z"/></svg></span>
+        <span><small>Telegram</small>@destruct_88</span>
+      </div>
+      <div>
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></span>
+        <span><small>Телефон</small>+380 (68) 68-52-994</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="promo">
+    <span class="badge">Безкоштовно</span>
+    <h3>Демо-версія сайту</h3>
+    <p>для вашого закладу</p>
+    <div class="turn">на звороті
+      <svg viewBox="0 0 60 40" fill="none" stroke="#bfe0ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 30C14 34 34 34 44 22c4-5 5-10 4-15"/>
+        <path d="M40 11l8-6 5 9"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- BACK -->
+<section class="card back">
+  <div class="grid"></div>
+  <div class="wrap">
+    <div class="text">
+      <div class="kicker">Подарунок для вас</div>
+      <h2>Демо-версія сайту<br><span>вашого закладу</span></h2>
+      <div class="sub">Скануйте код і подивіться, як може<br>виглядати ваш сайт — безкоштовно.</div>
+      <div class="tg"><svg viewBox="0 0 24 24"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.8c.9-.3 1.7.2 1.4 1.5z"/></svg>@destruct_88</div>
+    </div>
+    <div class="qr">місце<br>для QR-коду</div>
+  </div>
+</section>
+
+</body>
+</html>
