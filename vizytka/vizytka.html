@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Візитка Артем</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold: linear-gradient(120deg,#9c6b1c 0%,#d9b15a 22%,#f6e3a1 40%,#c8983f 58%,#f1d78c 78%,#a57422 100%);
+    --gold-solid:#b8892f;
+    --ink:#3a3128;
+    --ivory:#fffdf8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  @page{size:90mm 50mm;margin:0}
+  body{background:#ece7de;font-family:'Montserrat',sans-serif;color:var(--ink);
+       display:flex;flex-direction:column;align-items:center;gap:10mm;padding:10mm}
+  @media print{body{background:none;padding:0;gap:0}.card{box-shadow:none!important;page-break-after:always}}
+
+  .card{width:90mm;height:50mm;position:relative;overflow:hidden;
+        box-shadow:0 2mm 6mm rgba(80,60,20,.25)}
+  .gold-text{background:var(--gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  /* ---------- FRONT ---------- */
+  .front{background:
+     radial-gradient(circle at 100% 0%, #fbf1d6 0, transparent 45%),
+     radial-gradient(circle at 0% 100%, #f8efda 0, transparent 40%),
+     var(--ivory)}
+  .front .frame{position:absolute;inset:2.6mm;border:.25mm solid transparent;
+     border-image:var(--gold) 1}
+  .front .frame::after{content:"";position:absolute;inset:.8mm;border:.12mm solid rgba(184,137,47,.45)}
+  .corner{position:absolute;width:4mm;height:4mm}
+  .corner svg{width:100%;height:100%}
+  .c1{top:1.7mm;left:1.7mm}.c2{top:1.7mm;right:1.7mm;transform:scaleX(-1)}
+  .c3{bottom:1.7mm;left:1.7mm;transform:scaleY(-1)}.c4{bottom:1.7mm;right:1.7mm;transform:scale(-1)}
+
+  .content{position:absolute;inset:6mm 7mm 5.5mm 7mm;display:flex;flex-direction:column}
+  .name{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:8.6mm;line-height:1;letter-spacing:.3mm}
+  .role{font-size:2.1mm;letter-spacing:.9mm;text-transform:uppercase;font-weight:500;margin-top:1.2mm;color:#8a6a2c}
+  .divider{display:flex;align-items:center;gap:1.2mm;margin:2.6mm 0 2.4mm;width:34mm}
+  .divider span{flex:1;height:.2mm;background:var(--gold)}
+  .divider i{width:1.3mm;height:1.3mm;background:var(--gold);transform:rotate(45deg)}
+  .contacts{display:flex;flex-direction:column;gap:1.5mm;font-size:2.35mm;font-weight:500}
+  .contacts div{display:flex;align-items:center;gap:1.8mm}
+  .ico{width:3.6mm;height:3.6mm;border-radius:50%;background:var(--gold);display:grid;place-items:center;flex:none}
+  .ico svg{width:2mm;height:2mm;fill:#fff}
+  .contacts small{font-size:1.75mm;color:#9a8a70;font-weight:400;display:block;letter-spacing:.2mm;text-transform:uppercase}
+
+  .promo{position:absolute;right:6.2mm;bottom:5.6mm;width:33mm;text-align:right}
+  .promo p{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:2.75mm;line-height:1.2;color:var(--ink)}
+  .promo b{font-style:normal;font-weight:600;font-size:3.1mm;display:block}
+  .promo .turn{display:inline-flex;align-items:center;gap:1mm;margin-top:1.2mm;font-family:'Montserrat';font-style:normal;
+       font-size:1.75mm;letter-spacing:.6mm;text-transform:uppercase;font-weight:600;color:#9c6b1c}
+  .promo .arrow{width:9mm;height:6mm}
+
+  .monogram-bg{position:absolute;right:-3mm;top:-7mm;font-family:'Cormorant Garamond',serif;font-size:42mm;font-weight:600;
+       color:rgba(200,160,70,.08);line-height:1;pointer-events:none}
+
+  /* ---------- BACK ---------- */
+  .back{background:var(--gold);display:flex;align-items:center;justify-content:center}
+  .back::before{content:"";position:absolute;inset:0;
+       background:repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 .4mm,transparent .4mm 1.6mm)}
+  .back .inner{position:absolute;inset:3mm;background:var(--ivory);display:flex;align-items:center;padding:0 6mm;gap:6mm}
+  .back .inner::after{content:"";position:absolute;inset:1mm;border:.15mm solid rgba(184,137,47,.5);pointer-events:none}
+  .back .text{flex:1}
+  .back .kicker{font-size:1.8mm;letter-spacing:.9mm;text-transform:uppercase;color:#8a6a2c;font-weight:600}
+  .back h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:5.4mm;line-height:1.05;margin:1.4mm 0 1.6mm}
+  .back .sub{font-size:2mm;line-height:1.45;color:#6d5f4c}
+  .back .tg{margin-top:2.2mm;font-size:2.1mm;font-weight:600;color:var(--ink)}
+  .qr{width:23mm;height:23mm;flex:none;position:relative;display:grid;place-items:center;text-align:center;
+      font-size:1.6mm;letter-spacing:.3mm;text-transform:uppercase;color:#a8935f;font-weight:500}
+  .qr::before{content:"";position:absolute;inset:0;border:.3mm dashed #c9a14f;border-radius:1.5mm}
+  .qr .m{position:absolute;width:4mm;height:4mm;border:.5mm solid #b8892f}
+  .qr .m1{top:-.5mm;left:-.5mm;border-right:0;border-bottom:0}.qr .m2{top:-.5mm;right:-.5mm;border-left:0;border-bottom:0}
+  .qr .m3{bottom:-.5mm;left:-.5mm;border-right:0;border-top:0}.qr .m4{bottom:-.5mm;right:-.5mm;border-left:0;border-top:0}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9c6b1c"/><stop offset=".35" stop-color="#f1d78c"/>
+      <stop offset=".6" stop-color="#c8983f"/><stop offset="1" stop-color="#a57422"/>
+    </linearGradient>
+    <symbol id="corner" viewBox="0 0 20 20"><path d="M1 19V6a5 5 0 0 1 5-5h13" fill="none" stroke="url(#g)" stroke-width="1.4"/><circle cx="6" cy="6" r="1.8" fill="url(#g)"/></symbol>
+  </defs>
+</svg>
+
+<!-- FRONT -->
+<section class="card front">
+  <div class="monogram-bg">А</div>
+  <div class="frame"></div>
+  <div class="corner c1"><svg><use href="#corner"/></svg></div>
+  <div class="corner c2"><svg><use href="#corner"/></svg></div>
+  <div class="corner c3"><svg><use href="#corner"/></svg></div>
+  <div class="corner c4"><svg><use href="#corner"/></svg></div>
+
+  <div class="content">
+    <div class="name gold-text">Артем</div>
+    <div class="role">Веб-розробник</div>
+    <div class="divider"><span></span><i></i><span></span></div>
+    <div class="contacts">
+      <div>
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.8c.9-.3 1.7.2 1.4 1.5z"/></svg></span>
+        <span><small>Telegram</small>@destruct_88</span>
+      </div>
+      <div>
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></span>
+        <span><small>Телефон</small>+380 (68) 68-52-994</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="promo">
+    <p><b class="gold-text">Безкоштовна демо-версія</b>сайту для вашого закладу</p>
+    <div class="turn">на звороті
+      <svg class="arrow" viewBox="0 0 60 40" fill="none" stroke="url(#g)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 30C14 34 34 34 44 22c4-5 5-10 4-15"/>
+        <path d="M40 11l8-6 5 9"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- BACK -->
+<section class="card back">
+  <div class="inner">
+    <div class="text">
+      <div class="kicker">Подарунок для вас</div>
+      <h2 class="gold-text">Демо-версія сайту<br>вашого закладу</h2>
+      <div class="sub">Скануйте код і подивіться,<br>як може виглядати ваш сайт — безкоштовно.</div>
+      <div class="tg">Замовити: Telegram @destruct_88</div>
+    </div>
+    <div class="qr">
+      <span class="m m1"></span><span class="m m2"></span><span class="m m3"></span><span class="m m4"></span>
+      місце<br>для QR-коду
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
